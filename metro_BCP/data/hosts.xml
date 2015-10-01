@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfHost xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Host>
+    <name>rainymood</name>
+    <location>Chantilly, United States</location>
+    <address>http://www.rainymood.com/</address>
+    <ip>173.193.205.68</ip>
+  </Host>
+  <Host>
+    <name>coffitivity</name>
+    <location>New York, United States</location>
+    <address>https://coffitivity.com/</address>
+    <ip>45.55.205.62</ip>
+  </Host>
+  <Host>
+    <name>gettyimages</name>
+    <location>Germany</location>
+    <address>www.gettyimages.com/</address>
+    <ip>77.67.27.17</ip>
+  </Host>
+  <Host>
+    <name>bridgepointhealth</name>
+    <location>Waterloo, Ontario, Canada</location>
+    <address>www.bridgepointhealth.ca/</address>
+    <ip>216.16.234.30</ip>
+  </Host>
+  <Host>
+    <name>buzzfeed</name>
+    <location>Amsterdam, North Holland, Netherlands</location>
+    <address>www.buzzfeed.com</address>
+    <ip>23.74.196.25</ip>
+  </Host>
+  <Host>
+    <name>primary</name>
+    <location>CA, US</location>
+    <address>https://www.iplocation.net/</address>
+    <ip>198.72.229.177</ip>
+  </Host>
+</ArrayOfHost>
