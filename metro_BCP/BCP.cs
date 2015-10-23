@@ -40,7 +40,7 @@ namespace metro_BCP
             loadXML(sDataPath);
 
             //Reset hosts status
-            hostlist.ForEach(i => {  i.status = "unknow"; });
+            hostlist.ForEach(i => { i.status = "unknow"; });
             saveXML(hostlist, sDataPath);
 
             //Bind the DataGrid.
@@ -70,7 +70,7 @@ namespace metro_BCP
                 Host thisHost = new Host();
                 thisHost = thisHosts.Find(h => h.status == "Active");
                 this.SetText("Connecting host:  " + thisHost.host_name);
-                System.Diagnostics.Process.Start(thisBrowser, thisHost.ip + thisURL);
+                System.Diagnostics.Process.Start(thisBrowser, "http://" + thisHost.host_name + thisURL);
             }
             catch (Exception ex)
             {
@@ -180,15 +180,17 @@ namespace metro_BCP
                 var reply = await ping.SendPingAsync(thisHost.ip, 1000);
                 if (reply.Status == IPStatus.Success)
                 {
-                    updateHostStatus(thisHost.id,"Active");
+                    updateHostStatus(thisHost.id, "Active");
+                    System.Threading.Thread.Sleep(100);
                     this.SetText("Checking host health...\n" + thisHost.host_name + " is Active.");
-                    //Console.WriteLine(thisHost.host_name + " is Active.");
+                    Console.WriteLine(thisHost.host_name + " is Active.");
                 }
                 else
                 {
                     updateHostStatus(thisHost.id, "Inactive");
+                    System.Threading.Thread.Sleep(100);
                     this.SetText("Checking host health...\n" + thisHost.host_name + " is Inactive.");
-                    //Console.WriteLine(thisHost.host_name + " is Inactive.");
+                    Console.WriteLine(thisHost.host_name + " is Inactive.");
                 }
             }
 
@@ -250,7 +252,7 @@ namespace metro_BCP
         }
 
         //Update host status in hostlist
-        public void updateHostStatus( string thisId, string thisStatus)
+        public void updateHostStatus(string thisId, string thisStatus)
         {
             try
             {
