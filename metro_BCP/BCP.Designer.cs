@@ -113,7 +113,7 @@
             this.metroButton2.Name = "metroButton2";
             this.metroButton2.Size = new System.Drawing.Size(75, 23);
             this.metroButton2.TabIndex = 3;
-            this.metroButton2.Text = "Varify host";
+            this.metroButton2.Text = "Verify host";
             this.metroButton2.Theme = MetroFramework.MetroThemeStyle.Light;
             this.metroButton2.UseSelectable = true;
             this.metroButton2.UseStyleColors = true;
