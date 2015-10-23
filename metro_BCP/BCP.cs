@@ -2,16 +2,15 @@
 using System.IO;
 using System.Net;
 using System.Data;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework.Forms;
 using System.Net.NetworkInformation;
-using System.Xml;
 using System.Xml.Serialization;
 using BCP;
-using System.Linq;
-using System.Timers;
+using System.Drawing;
 
 namespace metro_BCP
 {
@@ -27,6 +26,7 @@ namespace metro_BCP
         public string sDataPath = Application.StartupPath + @"\\data\hosts.xml";
         public List<Host> hostlist = new List<Host>();//list of host object load form 'hosts.xml'
         public Host primary = new Host();
+        System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle = new System.Windows.Forms.DataGridViewCellStyle();
 
         public BCP()
         {
@@ -39,17 +39,19 @@ namespace metro_BCP
             //Load the host list from host.xml.
             loadXML(sDataPath);
 
+            //Reset hosts status
+            hostlist.ForEach(i => {  i.status = "unknow"; });
+            saveXML(hostlist, sDataPath);
+
             //Bind the DataGrid.
             metroGrid1.DataSource = hostlist;
-
-            //addXML("primary", "CA, US", "https://www.iplocation.net/", "198.72.229.177");
 
             //Retrieve the primary host.
             queryPrimaryHost(hostlist);
 
+
             //Load & Redirect
             //connectBCP(sBrowser, sURL);
-
             //Start background operation
             //this.backgroundWorker1.RunWorkerAsync();
 
@@ -60,12 +62,15 @@ namespace metro_BCP
             connectBCP(sBrowser, sURL, hostlist);
         }
 
-        public static void connectBCP(string thisBrowser, string thisURL, List<Host> thisHosts)
+        public void connectBCP(string thisBrowser, string thisURL, List<Host> thisHosts)
         {
             try
             {
-                Console.WriteLine(thisHosts.Find(h => h.status == "Active").ip + thisURL);
-                System.Diagnostics.Process.Start(thisBrowser, thisHosts.Find(h => h.status == "Active").ip + thisURL);
+                //Console.WriteLine(thisHosts.Find(h => h.status == "Active").ip + thisURL);
+                Host thisHost = new Host();
+                thisHost = thisHosts.Find(h => h.status == "Active");
+                this.SetText("Connecting host:  " + thisHost.host_name);
+                System.Diagnostics.Process.Start(thisBrowser, thisHost.ip + thisURL);
             }
             catch (Exception ex)
             {
@@ -82,11 +87,8 @@ namespace metro_BCP
             this.metroProgressSpinner1.Visible = true;
             this.labelProgress.Visible = true;
 
-
             PingAndUpdateHost(hostlist);
 
-            //Initial background work
-            //this.backgroundWorker1.RunWorkerAsync();
         }
 
         private void OnDoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
@@ -211,13 +213,18 @@ namespace metro_BCP
         //Loading xml file info. 
         public void loadXML(string filepath)
         {
-            if (File.Exists(filepath))
+            try
             {
-                XmlSerializer xs = new XmlSerializer(typeof(List<Host>));
-                FileStream read = new FileStream(filepath, FileMode.Open, FileAccess.Read, FileShare.Read);
-                hostlist = (List<Host>)xs.Deserialize(read);
-                read.Close();
+                if (File.Exists(filepath))
+                {
+                    XmlSerializer xs = new XmlSerializer(typeof(List<Host>));
+                    FileStream read = new FileStream(filepath, FileMode.Open, FileAccess.Read, FileShare.Read);
+                    hostlist = (List<Host>)xs.Deserialize(read);
+                    read.Close();
+                }
             }
+            catch (UnauthorizedAccessException) { }
+
         }
 
         //add new host into xml file.
@@ -277,140 +284,10 @@ namespace metro_BCP
         private void welcomeMsg(object sender, EventArgs e)
         {
             //Display welcome message.
-            MetroFramework.MetroMessageBox.Show(this, "Welcome to BCP Express.\n", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MetroFramework.MetroMessageBox.Show(this, "Welcome to BCP Express.\n\n The program will auto select a active BCP host for you.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
     }
 }
 
 
-
-//string result = "";
-//result = processPing("stackoverflow.com", 4);
-//Console.WriteLine(result);s
-//getHttpContext(sURL);
-
-
-//public static string processPing(string thisHost, int thisEchoNum)
-//{
-//    string res = thisHost + " is down.";
-//    int timeout = 120;
-//    Ping pingSender = new Ping();
-
-//    for (int i = 0; i < thisEchoNum; i++)
-//    {
-//        PingReply reply = pingSender.Send(thisHost, timeout);
-//        if (reply.Status == IPStatus.Success)
-//        {
-//            res = reply.Status.ToString();
-//        }
-//    }
-//    return res;
-//}
-
-//if (File.Exists(sDataPath))
-//{
-//    Console.WriteLine("host.xml exist.");
-//    try
-//    {
-//        saveXML(saveing, sDataPath);
-//    }
-//    catch(Exception ex)
-//    {
-//        MessageBox.Show(ex.Message);
-//    }
-
-//}
-
-
-//Local test start
-//Host a = new Host()
-//{
-//    name = "primary",
-//    location = "Chantilly, United States",
-//    address = "http://www.rainymood.com/",
-//    ip = "173.193.205.68",
-//    online = true
-//};
-//Host b = new Host()
-//{
-//    name = "coffitivity",
-//    location = "New York, United States",
-//    address = "https://coffitivity.com/",
-//    ip = "45.55.205.62",
-//    online = true
-//};
-//Host c = new Host()
-//{
-//    name = "gettyimages",
-//    location = "Germany",
-//    address = "www.gettyimages.com/",
-//    ip = "77.67.27.17",
-//    online = true
-//};
-//Host d = new Host()
-//{
-//    name = "bridgepointhealth",
-//    location = "Waterloo, Ontario, Canada",
-//    address = "www.bridgepointhealth.ca/",
-//    ip = "216.16.234.30",
-//    online = true
-//};
-//Host f = new Host()
-//{
-//    name = "buzzfeed",
-//    location = "Amsterdam, North Holland, Netherlands",
-//    address = "www.buzzfeed.com",
-//    ip = "23.74.196.25",
-//    online = true
-//};
-//Host g = new Host()
-//{
-//    name = "offline site",
-//    location = "moon",
-//    address = "www.midosf.com",
-//    ip = "192.1.1.1",
-//    online = true
-//};
-//List<Host> saveing = new List<Host>();
-//saveing.Add(a);
-//            saveing.Add(b);
-//            saveing.Add(c);
-//            saveing.Add(d);
-//            saveing.Add(f);
-//            saveing.Add(g);
-//            saveXML(saveing, sDataPath);
-//Local test end
-
-
-//    foreach (Host value in hostlist)
-//{
-//    Console.WriteLine(value.name);
-//    Console.WriteLine(value.location);
-//    Console.WriteLine(value.address);
-//    Console.WriteLine(value.ip);
-//    Console.WriteLine(value.online);
-//    Console.WriteLine("______________");
-//}
-
-//public static void processPing(string thisAddress)
-//{
-//    // Ping's the local machine.
-//    Ping pingSender = new Ping();
-//    //IPAddress address = IPAddress.Loopback;
-//    Uri uri = new Uri(thisAddress);
-//    PingReply reply = pingSender.Send(uri.Host);
-
-//    if (reply.Status == IPStatus.Success)
-//    {
-//        Console.WriteLine("Address: {0}", reply.Address.ToString());
-//        Console.WriteLine("RoundTrip time: {0}", reply.RoundtripTime);
-//        Console.WriteLine("Time to live: {0}", reply.Options.Ttl);
-//        Console.WriteLine("Don't fragment: {0}", reply.Options.DontFragment);
-//        Console.WriteLine("Buffer size: {0}", reply.Buffer.Length);
-//    }
-//    else
-//    {
-//        Console.WriteLine(reply.Status);
-//    }
-//}
