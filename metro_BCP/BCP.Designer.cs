@@ -54,8 +54,8 @@
             this.metroTabControl1.Controls.Add(this.metroTabPage2);
             this.metroTabControl1.Location = new System.Drawing.Point(22, 63);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 1;
-            this.metroTabControl1.Size = new System.Drawing.Size(507, 256);
+            this.metroTabControl1.SelectedIndex = 0;
+            this.metroTabControl1.Size = new System.Drawing.Size(550, 256);
             this.metroTabControl1.TabIndex = 3;
             this.metroTabControl1.UseSelectable = true;
             this.metroTabControl1.UseStyleColors = true;
@@ -71,7 +71,7 @@
             this.metroTabPage1.HorizontalScrollbarSize = 11;
             this.metroTabPage1.Location = new System.Drawing.Point(4, 38);
             this.metroTabPage1.Name = "metroTabPage1";
-            this.metroTabPage1.Size = new System.Drawing.Size(499, 214);
+            this.metroTabPage1.Size = new System.Drawing.Size(542, 214);
             this.metroTabPage1.TabIndex = 0;
             this.metroTabPage1.Text = "Main";
             this.metroTabPage1.VerticalScrollbarBarColor = true;
@@ -84,7 +84,7 @@
             this.labelProgress.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.labelProgress.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.labelProgress.ForeColor = System.Drawing.Color.Gray;
-            this.labelProgress.Location = new System.Drawing.Point(94, 131);
+            this.labelProgress.Location = new System.Drawing.Point(94, 122);
             this.labelProgress.Name = "labelProgress";
             this.labelProgress.Size = new System.Drawing.Size(253, 25);
             this.labelProgress.TabIndex = 5;
@@ -95,22 +95,26 @@
             // 
             // metroProgressSpinner1
             // 
+            this.metroProgressSpinner1.AllowDrop = true;
             this.metroProgressSpinner1.Location = new System.Drawing.Point(94, 72);
             this.metroProgressSpinner1.Maximum = 100;
             this.metroProgressSpinner1.Name = "metroProgressSpinner1";
             this.metroProgressSpinner1.Size = new System.Drawing.Size(16, 16);
             this.metroProgressSpinner1.TabIndex = 4;
+            this.metroProgressSpinner1.TabStop = false;
             this.metroProgressSpinner1.UseSelectable = true;
             this.metroProgressSpinner1.Value = 50;
             this.metroProgressSpinner1.Visible = false;
             // 
             // metroButton2
             // 
+            this.metroButton2.Highlight = true;
             this.metroButton2.Location = new System.Drawing.Point(3, 65);
             this.metroButton2.Name = "metroButton2";
             this.metroButton2.Size = new System.Drawing.Size(75, 23);
             this.metroButton2.TabIndex = 3;
-            this.metroButton2.Text = "Ping host";
+            this.metroButton2.Text = "Varify host";
+            this.metroButton2.Theme = MetroFramework.MetroThemeStyle.Light;
             this.metroButton2.UseSelectable = true;
             this.metroButton2.UseStyleColors = true;
             this.metroButton2.Click += new System.EventHandler(this.metroButton2_Click);
@@ -118,6 +122,7 @@
             // metroButton1
             // 
             this.metroButton1.Enabled = false;
+            this.metroButton1.Highlight = true;
             this.metroButton1.Location = new System.Drawing.Point(3, 23);
             this.metroButton1.Name = "metroButton1";
             this.metroButton1.Size = new System.Drawing.Size(75, 23);
@@ -136,7 +141,7 @@
             this.metroTabPage2.HorizontalScrollbarSize = 11;
             this.metroTabPage2.Location = new System.Drawing.Point(4, 38);
             this.metroTabPage2.Name = "metroTabPage2";
-            this.metroTabPage2.Size = new System.Drawing.Size(499, 214);
+            this.metroTabPage2.Size = new System.Drawing.Size(542, 214);
             this.metroTabPage2.TabIndex = 1;
             this.metroTabPage2.Text = "Host Info.";
             this.metroTabPage2.VerticalScrollbarBarColor = true;
@@ -145,9 +150,7 @@
             // 
             // metroGrid1
             // 
-            this.metroGrid1.AllowUserToDeleteRows = false;
             this.metroGrid1.AllowUserToResizeRows = false;
-            this.metroGrid1.AllowUserToAddRows = true;
             this.metroGrid1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.metroGrid1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.metroGrid1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
@@ -185,7 +188,7 @@
             this.metroGrid1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.metroGrid1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.metroGrid1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.metroGrid1.Size = new System.Drawing.Size(499, 205);
+            this.metroGrid1.Size = new System.Drawing.Size(539, 205);
             this.metroGrid1.TabIndex = 2;
             this.metroGrid1.UseStyleColors = true;
             // 
@@ -210,14 +213,16 @@
             this.BackImage = global::metro_BCP.Properties.Resources.next;
             this.BackImagePadding = new System.Windows.Forms.Padding(160, 22, 0, 0);
             this.BackMaxSize = 32;
-            this.ClientSize = new System.Drawing.Size(555, 349);
+            this.ClientSize = new System.Drawing.Size(595, 351);
             this.Controls.Add(this.metroTabControl1);
+            this.Font = new System.Drawing.Font("PMingLiU", 9F);
             this.ForeColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "BCP";
             this.Text = "BCP Express";
             this.TransparencyKey = System.Drawing.Color.LavenderBlush;
             this.Load += new System.EventHandler(this.BCP_Load);
+            this.Shown += new System.EventHandler(this.welcomeMsg);
             this.metroTabControl1.ResumeLayout(false);
             this.metroTabPage1.ResumeLayout(false);
             this.metroTabPage1.PerformLayout();
