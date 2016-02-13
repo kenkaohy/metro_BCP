@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfHost xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Host>
+  
+    <Host>
     <id>1</id>
     <host_name>v-bcvm1</host_name>
     <location>Test</location>
@@ -250,4 +251,18 @@
     <ip>10.100.24.25</ip>
     <status>unknow</status>
   </Host>
+  <!--<Host>
+    <id>44</id>
+    <host_name>yahoo.com</host_name>
+    <location>Test</location>
+    <ip>2001:4998:c:a06::2:4008</ip>
+    <status>Active</status>
+  </Host>
+  <Host>
+    <id>45</id>
+    <host_name>yelp.com</host_name>
+    <location>Test</location>
+    <ip>104.16.56.23</ip>
+    <status>Active</status>
+  </Host>-->  
 </ArrayOfHost>
